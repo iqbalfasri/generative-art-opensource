@@ -142,19 +142,20 @@ let rarityWeights = [
 // for each layer, call 'addLayer' with the id and optionally the positioning and size
 // the id would be the name of the folder in your input directory, e.g. 'ball' for ./input/ball
 const layers = [
-  addLayer('ball', { x: 0, y: 0 }, { width: width, height: height }),
-  addLayer('eye color'),
-  addLayer('iris'),
-  addLayer('shine'),
-  addLayer('bottom lid'),
-  addLayer('top lid')
+  addLayer("base head"),
+  addLayer("hair"),
+  addLayer("eye"),
+  addLayer('nose'),
+  addLayer("mouth"),
+  addLayer('acc head'),
+  addLayer("acc face")
 ];
 
 // provide any specific percentages that are required for a given layer and rarity level
 // all provided options are used based on their percentage values to decide which layer to select from
-addRarityPercentForLayer('super_rare', 'ball', { 'super_rare': 33, 'rare': 33, 'original': 33 });
-addRarityPercentForLayer('super_rare', 'eye color', { 'super_rare': 50, 'rare': 25, 'original': 25 });
-addRarityPercentForLayer('original', 'eye color', { 'super_rare': 50, 'rare': 25, 'original': 25 });
+addRarityPercentForLayer('original', 'base head', { 'super_rare': 33, 'rare': 33, 'original': 33 });
+addRarityPercentForLayer('super_rare', 'hair', { 'super_rare': 50, 'rare': 25, 'original': 25 });
+addRarityPercentForLayer('original', 'mouth', { 'super_rare': 50, 'rare': 25, 'original': 25 });
 
 module.exports = {
   layers,

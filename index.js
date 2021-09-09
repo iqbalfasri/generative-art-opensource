@@ -14,6 +14,11 @@ const console = require("console");
 const canvas = createCanvas(width, height);
 const ctx = canvas.getContext("2d");
 
+// holds which dna has already been used during generation
+let dnaListByRarity = {};
+// holds metadata for all NFTs
+let metadataList = [];
+
 // saves the generated image to the output folder, using the edition count as the name
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
@@ -163,10 +168,16 @@ const writeMetaData = (_data) => {
   fs.writeFileSync("./output/_metadata.json", _data);
 };
 
-// holds which dna has already been used during generation
-let dnaListByRarity = {};
-// holds metadata for all NFTs
-let metadataList = [];
+const saveMetaDataSingleFile = (_editionCount) => {
+  console.log("**** GENERATING META DATA SINGLE FILE *****")
+  const meta = metadataList.find((meta) => meta.edition == _editionCount);
+
+  fs.writeFileSync(
+    `./output/${_editionCount}.json`,
+    JSON.stringify(meta, null, 2) // readable data
+  );
+};
+
 // Create generative art by using the canvas api
 const startCreating = async () => {
   console.log('##################');
@@ -235,6 +246,8 @@ const startCreating = async () => {
       saveImage(editionCount);
       let nftMetadata = generateMetadata(newDna, editionCount, attributesList);
       metadataList.push(nftMetadata)
+      // metadata single file
+      saveMetaDataSingleFile(editionCount);
       console.log('- metadata: ' + JSON.stringify(nftMetadata));
       console.log('- edition ' + editionCount + ' created.');
       console.log();
